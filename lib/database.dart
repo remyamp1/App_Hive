@@ -6,13 +6,13 @@ class Database {
       'image':"assets/image/image crew.jpeg",
       'name':"CARHARTT WIP",
       'name1':'Hooded Carhartt',
-      'price':'131',
+      'price':'999',
     }, 
     {
       'image':"assets/image/ph2.jpeg",
       'name':"RHUDE",
        'name1':'Motor Crest Crew',
-      'price':'572',
+      'price':'1570',
       
     },
 
@@ -20,14 +20,14 @@ class Database {
       'image':"assets/image/ph3.jpeg",
       'name':"RHUDE",
        'name1':'Graphic Crewneck',
-      'price':'675',
+      'price':'2500',
     },
 
      {
       'image':"assets/image/ph4.jpeg",
       'name':"VANS",
        'name1':'Motor Crest Crew',
-      'price':'755',
+      'price':'1755',
     },
 
 
@@ -35,7 +35,7 @@ class Database {
       'image':"assets/image/ph5.jpeg",
       'name':"VANS",
        'name1':'Motor Crest Crew',
-      'price':'755',
+      'price':'999',
     },
 
 
@@ -43,7 +43,7 @@ class Database {
       'image':"assets/image/ph6.jpeg",
       'name':"VANS",
        'name1':'Motor Crest Crew',
-      'price':'755',
+      'price':'999',
     },
 
   ];
