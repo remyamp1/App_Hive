@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_app/WishList.dart';
 import 'package:hive_app/database.dart';
 import 'package:hive_app/descreption.dart';
 class ScreenFirst extends StatefulWidget {
@@ -19,7 +20,8 @@ class _ScreenFirstState extends State<ScreenFirst> {
         ],backgroundColor: const Color.fromARGB(255, 178, 219, 253)
       ),
       body: Container(
-        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/image/backgroun.jpeg"),
+        decoration: BoxDecoration(image: DecorationImage(
+          image: AssetImage("assets/image/backgroun.jpeg"),
         fit: BoxFit.cover)),
    child:    Column(
         children: [
@@ -59,9 +61,10 @@ class _ScreenFirstState extends State<ScreenFirst> {
        child: Column(
          children: [
            Container(
-            height: 100,
-            width: 150,
-            decoration: BoxDecoration(image: DecorationImage(image: AssetImage(Database.MyList[index]['image']))),
+            height: 90,
+            width: 120,
+            decoration: BoxDecoration(image: DecorationImage(
+              image: AssetImage(Database.MyList[index]['image']))),
        child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context)=>Example(imagepath: Database.MyList[index]['image'],
@@ -74,7 +77,14 @@ class _ScreenFirstState extends State<ScreenFirst> {
            Row(
              children: [
                Text(Database.MyList[index]['price']),
-                Icon(Icons.favorite)
+               SizedBox(width:5),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=>WishList(imagepath: Database.MyList[index]['image'],
+           name: Database.MyList[index]['name'], price: Database.MyList[index]['price'])));
+                  },
+                  child: Icon(Icons.favorite))
              ],
            ),
           

@@ -10,35 +10,29 @@ class RegistrationExample extends StatefulWidget {
 
 class _RegistrationExampleState extends State<RegistrationExample> {
 late Box box;
- List<Map<String,String>> itemList=[];
+
   TextEditingController fullnameController=TextEditingController();
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
   TextEditingController confirmpasswordController=TextEditingController();
  TextEditingController phonenoController=TextEditingController();
 TextEditingController createController=TextEditingController();
-  
+   List<Map<String,String>> itemList=[];
    String _registrationmessage='';
   @override
   void initState(){
     super.initState();
     box=Hive.box('mybox');
-      final storedItems=box.get('itemsList');
-     if(storedItems is List){
-      itemList=List<Map<String,String>>.from(
-        storedItems.map((e)=>Map<String,String>.from(e))
-      );
-     }
+     
 
   }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/image/backgroun.jpeg"),
         fit: BoxFit.cover)),
-       child: 
-      
-      Center(
+       child: Center(
         child:
          Padding(
           padding: const EdgeInsets.all(20.0),
@@ -107,28 +101,47 @@ TextEditingController createController=TextEditingController();
                      box.put(
                 'itemsList',
                  itemList.map((e)=>Map<String,dynamic>.from(e)
-                ).toList());
-                        });
+                ).toList(),
+                );
+                fullnameController.clear();
+                emailController.clear();
+                passwordController.clear();
+                confirmpasswordController.clear();
+                passwordController.clear();
+                _registrationmessage="Registration Successful";
+                        
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginExample()));
+                      });
+                      print('Registered Items:$itemList');
                       },
+                      
                       child: Text("Create an Account",style: TextStyle(fontSize: 20),)),
                   
                   ),
+                
                 ),
                 SizedBox(height: 40),
-            
+            Text('$_registrationmessage'),
                 Row(
                   
                   children: [
                     Text("Already have an Account?"),
                     SizedBox(width: 10),
                     ElevatedButton(onPressed: (){
-                                
+                            GestureDetector(
+                              onTap: () {
+                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginExample()));
+                              },
+                            );    
                       
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginExample()));
+                      
                        },
                         style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 211, 151, 250),shape: RoundedRectangleBorder()),
-                        child: Text("Login")),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginExample()));
+                          },
+                          child: Text("Login"))),
                   ],
                 )
               ],
