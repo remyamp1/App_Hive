@@ -10,7 +10,7 @@ class RegistrationExample extends StatefulWidget {
 
 class _RegistrationExampleState extends State<RegistrationExample> {
 late Box box;
-List<Map<String,String>> listItem=[];
+ List<Map<String,String>> itemList=[];
   TextEditingController fullnameController=TextEditingController();
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
@@ -23,6 +23,13 @@ TextEditingController createController=TextEditingController();
   void initState(){
     super.initState();
     box=Hive.box('mybox');
+      final storedItems=box.get('itemsList');
+     if(storedItems is List){
+      itemList=List<Map<String,String>>.from(
+        storedItems.map((e)=>Map<String,String>.from(e))
+      );
+     }
+
   }
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,24 +57,17 @@ TextEditingController createController=TextEditingController();
                 
                 SizedBox(height: 20),
             
-                TextFormField
-                
-                (
+                TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(border: OutlineInputBorder(),label: Text("Email")),),
-                     
+                  SizedBox(height: 20),
             
-                SizedBox(height: 20),
-            
-                TextFormField(
+                  TextFormField(
                    controller: passwordController,
                   decoration: InputDecoration(border: OutlineInputBorder(),label: Text('Password')),),
+            SizedBox(height: 20),
             
-            
-            
-                SizedBox(height: 20),
-            
-                TextFormField(
+             TextFormField(
                    controller: confirmpasswordController,
                   decoration: InputDecoration(border: OutlineInputBorder(),label: Text('ConfirmPassword')),),
               
@@ -90,24 +90,24 @@ TextEditingController createController=TextEditingController();
                           passwordController.text.isEmpty ||
                           confirmpasswordController.text.isEmpty ||
                           phonenoController.text.isEmpty){
-_registrationmessage='All fields are required';
-return;}
+                         _registrationmessage='All fields are required';
+                          return;
+                          }
              if(passwordController.text !=passwordController.text){
               _registrationmessage='Password do not match';
               return;
              }             
-                   listItem.add({
+                   itemList.add({
                     'fullname':fullnameController.text,
                     'email':emailController.text,
                     'password':passwordController.text,
                     'confirm':confirmpasswordController.text,
                     'Phno':phonenoController.text
                    });   
-                    box.put('fullname',fullnameController .text);
-                        box.put('email',emailController.text);
-                        box.put('password',passwordController.text);
-                        box.put('confirm',confirmpasswordController.text);
-                         box.put('phno',phonenoController.text);    
+                     box.put(
+                'itemsList',
+                 itemList.map((e)=>Map<String,dynamic>.from(e)
+                ).toList());
                         });
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginExample()));
                       },

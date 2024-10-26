@@ -71,7 +71,13 @@ class _ScreenFirstState extends State<ScreenFirst> {
            ),
            Text(Database.MyList[index]['name']),
            Text(Database.MyList[index]['name1']),
-           Text(Database.MyList[index]['price'])
+           Row(
+             children: [
+               Text(Database.MyList[index]['price']),
+                Icon(Icons.favorite)
+             ],
+           ),
+          
          ],
          
        ),
