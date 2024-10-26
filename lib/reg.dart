@@ -9,13 +9,16 @@ class RegistrationExample extends StatefulWidget {
 }
 
 class _RegistrationExampleState extends State<RegistrationExample> {
+late Box box;
+List<Map<String,String>> listItem=[];
   TextEditingController fullnameController=TextEditingController();
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
   TextEditingController confirmpasswordController=TextEditingController();
  TextEditingController phonenoController=TextEditingController();
 TextEditingController createController=TextEditingController();
-  late Box box;
+  
+   String _registrationmessage='';
   @override
   void initState(){
     super.initState();
@@ -79,7 +82,36 @@ TextEditingController createController=TextEditingController();
                   child: ElevatedButton(onPressed: (){},
                   style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 211, 151, 250),shape: RoundedRectangleBorder()),
                    
-                    child: Text("Create an Account",style: TextStyle(fontSize: 20),),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (fullnameController.text.isEmpty ||
+                          emailController.text.isEmpty ||
+                          passwordController.text.isEmpty ||
+                          confirmpasswordController.text.isEmpty ||
+                          phonenoController.text.isEmpty){
+_registrationmessage='All fields are required';
+return;}
+             if(passwordController.text !=passwordController.text){
+              _registrationmessage='Password do not match';
+              return;
+             }             
+                   listItem.add({
+                    'fullname':fullnameController.text,
+                    'email':emailController.text,
+                    'password':passwordController.text,
+                    'confirm':confirmpasswordController.text,
+                    'Phno':phonenoController.text
+                   });   
+                    box.put('fullname',fullnameController .text);
+                        box.put('email',emailController.text);
+                        box.put('password',passwordController.text);
+                        box.put('confirm',confirmpasswordController.text);
+                         box.put('phno',phonenoController.text);    
+                        });
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginExample()));
+                      },
+                      child: Text("Create an Account",style: TextStyle(fontSize: 20),)),
                   
                   ),
                 ),
@@ -92,13 +124,7 @@ TextEditingController createController=TextEditingController();
                     SizedBox(width: 10),
                     ElevatedButton(onPressed: (){
                                 
-                      setState(() {
-                        box.put('fullname',fullnameController .text);
-                        box.put('email',emailController.text);
-                        box.put('password',passwordController.text);
-                        box.put('confirmpassword',confirmpasswordController.text);
-                         box.put('phonenumber',phonenoController.text);
-                      });
+                      
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginExample()));
                        },
                         style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 211, 151, 250),shape: RoundedRectangleBorder()),
